@@ -1,3 +1,3 @@
 module Board = Lib.Board;;
 
-let () = Printf.printf "%s\n" Board.x;;
+let () = Board.print_board(Board.empty_board);;
