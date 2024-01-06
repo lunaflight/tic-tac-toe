@@ -1,1 +1,3 @@
-let () = print_endline "Hello, World!"
+module Board = Lib.Board;;
+
+let () = Printf.printf "%s\n" Board.x;;
