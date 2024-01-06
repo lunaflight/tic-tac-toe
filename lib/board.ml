@@ -16,11 +16,18 @@ let print_board board =
         | Empty -> "." in
     let row_to_string row = String.concat " " (List.map mark_to_string row) in
     let board_to_string board = String.concat "\n" (List.map row_to_string board) in
-print_endline (board_to_string board);;
+    print_endline (board_to_string board);;
 
-let put_mark mark r c board = 
-List.mapi (fun i x -> if i <> r then x
-else List.mapi (fun j y -> if j <> c then y else mark) x) board;;
+let override_mark mark r c board = 
+    List.mapi (fun i x -> if i <> r then x
+    else List.mapi (fun j y -> if j <> c then y else mark) x) board;;
+
+let is_occupied r c board =
+    List.nth (List.nth board r) c <> Empty;;
+
+let put_mark mark r c board =
+    if is_occupied r c board then raise (Failure "Spot is already occupied")
+    else override_mark mark r c board;;
 
 let has_win board =
     let all_same list = List.for_all (fun x -> x = List.hd list) list && List.hd list <> Empty in
@@ -41,3 +48,8 @@ let has_win board =
     let check_all_rows board = perform_check check_row board in
     let check_all_cols board = perform_check check_col board in
     check_all_rows board || check_all_cols board || check_down_left_diag board || check_down_right_diag board;;
+
+let is_full board =
+    let is_full_row row = List.for_all (fun x -> x <> Empty) row in
+    List.for_all (fun row -> is_full_row row) board;;
+
