@@ -5,15 +5,21 @@ type mark =
 
 type board = mark list list;;
 
+let negate mark = match mark with
+    | O -> X
+    | X -> O
+    | Empty -> Empty;;
+
+let mark_to_string mark = match mark with
+    | O -> "O"
+    | X -> "X"
+    | Empty -> ".";;
+
 let empty_board = [[Empty; Empty; Empty]; [Empty; Empty; Empty]; [Empty; Empty; Empty]];;
 let dimension = 3;;
-let enum_dimensions = List.init dimension (Fun.id)
+let enum_dimensions = List.init dimension (Fun.id);;
 
 let print_board board =
-    let mark_to_string mark = match mark with
-        | O -> "O"
-        | X -> "X"
-        | Empty -> "." in
     let row_to_string row = String.concat " " (List.map mark_to_string row) in
     let board_to_string board = String.concat "\n" (List.map row_to_string board) in
     print_endline (board_to_string board);;
@@ -52,4 +58,3 @@ let has_win board =
 let is_full board =
     let is_full_row row = List.for_all (fun x -> x <> Empty) row in
     List.for_all (fun row -> is_full_row row) board;;
-
