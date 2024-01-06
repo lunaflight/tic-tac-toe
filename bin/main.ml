@@ -24,7 +24,7 @@ let rec new_game () =
         ) in
 
 
-    print_endline("Starting a new game...");
+    print_endline "Starting a new game...";
     let board = Board.empty_board in
     Board.print_board board;
     new_turn Board.X "It's %s's turn.\n" board;;

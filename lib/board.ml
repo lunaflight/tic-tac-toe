@@ -25,8 +25,12 @@ let print_board board =
     print_endline (board_to_string board);;
 
 let override_mark mark r c board = 
-    List.mapi (fun i x -> if i <> r then x
-    else List.mapi (fun j y -> if j <> c then y else mark) x) board;;
+    List.mapi (fun i x -> if i <> r
+        then x
+        else List.mapi (fun j y -> if j <> c
+            then y
+            else mark) x)
+        board;;
 
 let is_occupied r c board =
     List.nth (List.nth board r) c <> Empty;;
